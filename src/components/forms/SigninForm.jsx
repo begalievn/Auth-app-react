@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { onSignIn } from "../../api";
+import classes from "./SigninForm.module.css";
 
 function SigninForm() {
   const emailInputRef = useRef();
@@ -22,16 +23,16 @@ function SigninForm() {
 
   return (
     <div>
-      <form onSubmit={submitHandler}>
-        <div>
+      <form className={classes.form} onSubmit={submitHandler}>
+        <div className={classes.control}>
           <label htmlFor="email">Email</label>
           <input type="text" required id="title" ref={emailInputRef} />
         </div>
-        <div>
+        <div className={classes.control}>
           <label htmlFor="password">Password</label>
           <input type="text" required id="password" ref={passwordInputRef} />
         </div>
-        <div>
+        <div className={classes.actions}>
           <button>Sign In</button>
         </div>
       </form>
