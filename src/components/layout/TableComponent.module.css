@@ -1,0 +1,23 @@
+.container {
+  border: solid 1px black;
+}
+
+.table {
+  border: solid 2px black;
+  width: 800px;
+  min-height: 50px;
+}
+
+.table_row {
+  height: 25px;
+}
+
+.table_header {
+  border: 1px solid black;
+  text-align: start;
+}
+
+.table_data {
+  text-align: start;
+  border: solid 1px black;
+}

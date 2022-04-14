@@ -10,6 +10,9 @@ function SignupForm() {
   const ageInputRef = useRef();
   const nameInputRef = useRef();
 
+  // State for Sign up button while it is wating for response from server
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
+
   // navigate from useNavigate react-router-dom hook
   const navigate = useNavigate();
 
@@ -18,6 +21,9 @@ function SignupForm() {
 
   // State for the text of the modal: is user successfully created?
   const [responseMessage, setResponseMessage] = useState("");
+
+  // State if the error occured during sign up
+  const [errorOccured, setErrorOccured] = useState(false);
 
   const showModal = () => {
     console.log("show Modal is open");
@@ -30,7 +36,7 @@ function SignupForm() {
   };
 
   const handleCancel = () => {
-    navigate("/");
+    navigate("/signup");
     setIsModalVisible(false);
   };
 
@@ -49,19 +55,37 @@ function SignupForm() {
       name: enteredName,
     };
 
-    onSignUp(signupData).then((response) => {
-      console.log(response.data);
-      if (response.status === 201) {
-        setResponseMessage(response.data.msg);
-        showModal();
-      }
-    });
+    // Set the Sign up button to loading state
+    setIsButtonLoading(true);
+
+    onSignUp(signupData)
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          setResponseMessage(response.data.msg);
+          setIsButtonLoading(false);
+          setErrorOccured(false);
+          showModal();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setResponseMessage("* User already exists");
+        setIsButtonLoading(false);
+        setErrorOccured(true);
+      });
   };
 
   return (
     <>
       <div>
         <form className={classes.form} onSubmit={submitHandler}>
+          {errorOccured ? (
+            <div className={classes.control} style={{ color: "red" }}>
+              <label>{responseMessage}</label>
+            </div>
+          ) : null}
+
           <div className={classes.control}>
             <label htmlFor="email">Email</label>
             <input type="text" required id="email" ref={emailInputRef} />
@@ -79,7 +103,7 @@ function SignupForm() {
             <input type="text" required id="name" ref={nameInputRef} />
           </div>
           <div className={classes.actions}>
-            <button>Sign Up</button>
+            <button>{isButtonLoading ? "Loading..." : "Sign Up"}</button>
           </div>
         </form>
       </div>
