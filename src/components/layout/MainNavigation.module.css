@@ -16,6 +16,8 @@
 .h1 {
   color: rgb(76, 211, 245);
   text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 
 .right {
@@ -23,4 +25,11 @@
   display: flex;
   justify-content: space-around;
   text-decoration: none;
+}
+
+.left {
+  width: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

@@ -11,15 +11,19 @@ function Main() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     onGetAllUsers(token).then((response) => {
-      console.log(response.data.users.slice(-10));
-      setUsersData(response.data.users.slice(-10));
+      console.log(response.data.users);
+      setUsersData(response.data.users);
     });
   }, []);
 
   return (
     <div>
       <h1>Main page</h1>
-      <TableComponent usersData={usersData} />
+      {usersData.length === 0 ? (
+        <p>Loading</p>
+      ) : (
+        <TableComponent usersData={usersData} />
+      )}
     </div>
   );
 }
