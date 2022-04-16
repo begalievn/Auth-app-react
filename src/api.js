@@ -22,6 +22,13 @@ export const onGetAllUsers = async (token) => {
   return response;
 };
 
-export const onGetUser = async () => {
-  console.log("Get a user ");
+export const onGetUser = async (token) => {
+  console.log("Get a user request sended");
+  const response = axios.get(`${BASE_URL}users/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response;
 };

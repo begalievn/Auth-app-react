@@ -18,7 +18,7 @@ function Main() {
 
   return (
     <div>
-      <h1>Main page</h1>
+      <h1>All Users</h1>
       {usersData.length === 0 ? (
         <p>Loading</p>
       ) : (

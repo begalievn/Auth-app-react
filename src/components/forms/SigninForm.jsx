@@ -36,7 +36,7 @@ function SigninForm() {
         localStorage.setItem("token", token);
         console.log(response);
         if (response.status === 201) {
-          navigate("/users");
+          navigate("/users/me");
         }
       })
       .catch((error) => {

@@ -1,4 +1,3 @@
-import { onSignIn } from "../api";
 import SigninForm from "../components/forms/SigninForm";
 
 function SignIn() {
