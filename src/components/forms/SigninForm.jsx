@@ -1,11 +1,15 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { onSignIn } from "../../api";
+import { onSignIn, onGetUser } from "../../api";
 import classes from "./SigninForm.module.css";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/user";
 
 function SigninForm() {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+
+  const dispatch = useDispatch();
 
   // State for checking if fields are filled correctly
   const [areFieldIncorrect, setAreFieldsIncorrect] = useState(false);
@@ -36,7 +40,23 @@ function SigninForm() {
         localStorage.setItem("token", token);
         console.log(response);
         if (response.status === 201) {
-          navigate("/users/me");
+          const token = localStorage.getItem("token");
+          onGetUser(token).then((response) => {
+            console.log(response);
+            let userData = response.data;
+
+            dispatch(
+              login({
+                name: userData.name,
+                email: userData.email,
+                id: userData.id,
+                role: userData.role,
+                status: userData.status,
+                loggedIn: true,
+              })
+            );
+            navigate("/users/me");
+          });
         }
       })
       .catch((error) => {

@@ -1,34 +1,43 @@
-import { useState, useEffect } from "react";
-import { onGetUser } from "../api";
+import { useSelector } from "react-redux";
+import { Button } from "antd";
+import classes from "./UserMe.module.css";
+import { useDispatch } from "react-redux";
+import { logout } from "../features/user";
+import { useNavigate } from "react-router-dom";
 
 function UserMe() {
-  // State for userData which will be taken from the server
-  const [userData, setUserData] = useState({});
-
-  // State for the data if it is ready to display
-  const [isDataLoading, SetIsDataLoading] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    onGetUser(token).then((response) => {
-      console.log(response);
-      setUserData(response.data);
-      SetIsDataLoading(true);
-    });
-  });
+  const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
-    <div>
-      <h1>User Page</h1>
-      {isDataLoading ? (
-        <div>
-          <p>Name: {userData.name}</p>
-          <p>Email: {userData.email}</p>
-          <p>Id: {userData.id}</p>
-        </div>
-      ) : (
-        <p>Loading</p>
-      )}
+    <div className={classes.div}>
+      <h1 className={classes.header}>User Page</h1>
+      <p>
+        <strong>Name:</strong> {user.name}
+      </p>
+      <p>
+        <strong>Email:</strong> {user.email}
+      </p>
+      <p>
+        <strong>ID:</strong> {user.id}
+      </p>
+      <p>
+        <strong>Role:</strong> {user.role}
+      </p>
+      <p>
+        <strong>Status:</strong> {user.status}
+      </p>
+      <Button
+        type="primary"
+        onClick={() => {
+          dispatch(logout());
+          localStorage.clear();
+          navigate("/signin");
+        }}
+      >
+        Log Out
+      </Button>
     </div>
   );
 }

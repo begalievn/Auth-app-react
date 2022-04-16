@@ -5,10 +5,7 @@ function App() {
   return (
     <div className="App">
       <MainNavigation />
-      <div>
-        <h1>App.js</h1>
-      </div>
-      <div></div>
+      <br></br>
       <Outlet />
     </div>
   );

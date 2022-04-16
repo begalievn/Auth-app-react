@@ -1,8 +1,10 @@
 import SignupForm from "../components/forms/SignupForm";
+import classes from "./SignUp.module.css";
 
 function SignUp() {
   return (
-    <div>
+    <div className={classes.div}>
+      <h2 className={classes.header}>SignUp Page</h2>
       <SignupForm />
       <div></div>
     </div>

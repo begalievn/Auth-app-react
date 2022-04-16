@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
+import { useSelector } from "react-redux";
 
 function MainNavigation() {
+  const user = useSelector((state) => state.user.value);
+
   return (
     <nav className={classes.nav}>
       <div className={classes.left}>
@@ -12,8 +15,16 @@ function MainNavigation() {
         <div></div>
       </div>
       <div className={classes.right}>
-        <Link to="/signup">Sign Up</Link>
-        <Link to="/signin">Sign In</Link>
+        {user.loggedIn ? (
+          <Link to="/users/me">
+            {user.name} | {user.email}
+          </Link>
+        ) : (
+          <>
+            <Link to="/signup">Sign Up</Link>
+            <Link to="/signin">Sign In</Link>
+          </>
+        )}
       </div>
     </nav>
   );

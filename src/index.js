@@ -9,12 +9,15 @@ import SignIn from "./routes/SignIn";
 import SignUp from "./routes/SignUp";
 import Main from "./routes/Main";
 import UserMe from "./routes/UserMe";
+import userReducer from "./features/user";
 
 const container = document.getElementById("root");
 const root = ReactDOMClient.createRoot(container);
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    user: userReducer,
+  },
 });
 
 root.render(

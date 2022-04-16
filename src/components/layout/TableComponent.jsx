@@ -16,7 +16,7 @@ function TableComponent({ usersData }) {
 
     return usersData.map((item) => {
       return (
-        <tr className={classes.table_row}>
+        <tr key={item.id} className={classes.table_row}>
           <td className={classes.table_data}>{item.id}</td>
           <td className={classes.table_data}>{item.name}</td>
           <td className={classes.table_data}>{item.email}</td>
@@ -30,7 +30,6 @@ function TableComponent({ usersData }) {
 
   return (
     <div className={classes.container}>
-      <h2>Table Component</h2>
       <table className={classes.table}>
         <tbody>
           <tr className={classes.table_row}>
